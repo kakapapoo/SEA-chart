@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEA GDP Growth Chart</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    canvas {
+      display: block;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>SEA GDP Growth Rates (2025)</h1>
+    <canvas id="gdpChart"></canvas>
+  </div>
+
+  <script>
+    // Select the canvas element
+    const ctx = document.getElementById('gdpChart').getContext('2d');
+
+    // Data for the chart
+    const data = {
+      labels: ['Vietnam', 'Philippines', 'Indonesia', 'Malaysia'], // Country names
+      datasets: [{
+        label: 'GDP Growth Rate (%)',
+        data: [6.5, 6.1, 5.1, 4.5], // GDP growth rates
+        backgroundColor: [
+          '#4caf50', // Green for Vietnam
+          '#2196f3', // Blue for Philippines
+          '#ff9800', // Orange for Indonesia
+          '#9c27b0'  // Purple for Malaysia
+        ],
+        borderColor: [
+          '#388e3c', // Darker green for Vietnam
+          '#1976d2', // Darker blue for Philippines
+          '#f57c00', // Darker orange for Indonesia
+          '#7b1fa2'  // Darker purple for Malaysia
+        ],
+        borderWidth: 1
+      }]
+    };
+
+    // Chart configuration
+    const config = {
+      type: 'bar', // Bar chart
+      data: data,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: true, // Show legend
+            position: 'top'
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return context.raw + '%'; // Add "%" to tooltip values
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Countries',
+              font: { size: 14 }
+            }
+          },
+          y: {
+            beginAtZero: true, // Start y-axis at 0
+            title: {
+              display: true,
+              text: 'GDP Growth Rate (%)',
+              font: { size: 14 }
+            },
+            ticks: {
+              callback: function(value) {
+                return value + '%'; // Add "%" to y-axis ticks
+              }
+            }
+          }
+        }
+      }
+    };
+
+    // Render the chart
+    new Chart(ctx, config);
+  </script>
+</body>
+</html>
